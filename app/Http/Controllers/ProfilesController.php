@@ -8,9 +8,9 @@ use App\Models\User;
 class ProfilesController extends Controller
 {
     public function index($user){
-        $userRetreived = User::find($user);
+        $userRetreived = User::findOrFail($user);
         #dd($userRetreived);
-        return view('home', [
+        return view('profiles.index', [
             'user' => $userRetreived,
         ]);
     }
