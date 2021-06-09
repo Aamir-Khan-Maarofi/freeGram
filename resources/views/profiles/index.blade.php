@@ -2,18 +2,27 @@
 
 @section('content')
 <div class="container">
-    <div class="row">
+    <div class="row pb-4">
         <div class="col-3 p-5">
-            <img src="/imgs/logo.png" class="rounded-circle">
+            <img src="{{$user->userProfile->profileImage()}}" class="rounded-circle w-100">
         </div>
 
         <div class="col-9 pt-5">
             <div class="font-weight-bold d-flex justify-content-between align-items-baseline">
-                <h1>{{$user->username}}</h1>
-                <a href="#">Create New Post</a>
+                <div class="d-flex">
+                    <h1>{{$user->username}}</h1>
+                    <follow-button></follow-button>
+                </div>
+                @can('update', $user->userProfile)
+                    <a href="/p/create">Create New Post</a>
+                @endcan
             </div>
+            @can('update', $user->userProfile)
+                <a href="/profile/{{$user->id}}/edit">Edit Profile</a>
+            @endcan
+
             <div class="d-flex">
-                <div class="pr-5"><strong>452</strong> posts</div>
+                <div class="pr-5"><strong>{{$user->posts->count()}}</strong> posts</div>
                 <div class="pr-5"><strong>49k</strong> followers</div>
                 <div class="pr-5"><strong>232</strong> following</div>
             </div>
@@ -24,15 +33,12 @@
     </div>
 
     <div class="row">
-        <div class="col-4">
-            <img src="/imgs/1.jpg" class="w-100">
-        </div>
-        <div class="col-4">
-            <img src="/imgs/2.jpg" class="w-100">
-        </div>
-        <div class="col-4">
-            <img src="/imgs/3.jpg" class="w-100">
-        </div>
+
+        @foreach ($user->posts as $post)
+            <div class="col-4 pb-4">
+                <a href="/p/{{ $post->id }}"><img src="/storage/{{$post->image}}" class="w-100"></a>
+            </div>
+        @endforeach
     </div>
 </div>
 @endsection

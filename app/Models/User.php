@@ -43,10 +43,22 @@ class User extends Authenticatable
     ];
 
     public function posts(){
-        return $this->hasMany(UserPosts::class);
+        return $this->hasMany(UserPosts::class)->orderBy('created_at', "DESC");
     }
 
     public function userProfile(){
         return $this->hasOne(UserProfile::class);
+    }
+
+    //Eloquent Model Evnets - This creates demo profile for new users
+    protected static function boot(){
+        parent::boot();
+
+        static::created(function($user){
+            $user->userProfile()->create([
+                'title'=>$user->username,
+                //'image'=> 'profile/demo_profile.png'
+                ]);
+        });
     }
 }
