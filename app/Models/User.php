@@ -42,9 +42,9 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    //This user can follow many profiles
+    //A user can follow many users
     public function following(){
-        return $this->belongsToMany(UserProfile::class, 'user_profiles_id', 'user_id' );
+        return $this->belongsToMany(UserProfile::class, 'user_userprofile', 'user_id', 'userprofile_id');
     }
 
     //User can have many posts in their prfile

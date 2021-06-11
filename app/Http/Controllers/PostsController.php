@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\UserPosts;
 use Illuminate\Http\Request;
 use Intervention\Image\Facades\Image;
 use Intervention\Image\ImageManager\make;
@@ -12,6 +13,16 @@ class PostsController extends Controller
     {
         $this->middleware('auth');
     }
+
+    //Return posts of users the user is following
+    public function index(){
+        $users = auth()->user()->following()->pluck('user_profiles.user_id');
+
+        $posts = UserPosts::whereIn('user_id', $users)->latest()->get();
+
+        return view('posts.index', compact('posts'));
+    }
+
     public function create(){
         return view('posts.create');
     }

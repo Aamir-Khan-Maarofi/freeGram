@@ -2,12 +2,9 @@
 
 @section('content')
 <div class="container">
+    @foreach ($posts as $post)
     <div class="row">
-        <div class="col-8">
-            <img src="/storage/{{ $post->image }}" class="w-100">
-        </div>
-
-        <div class="col-4">
+        <div class="col-4 offset-4">
             <div>
                 <div class="d-flex align-items-center">
                     <div class="pr-3">
@@ -23,10 +20,7 @@
                         </div>
                     </div>
                     <follow-link></follow-link>
-
                 </div>
-
-                <hr>
 
                 <p>
                     <span class="font-weight-bold">
@@ -37,5 +31,16 @@
             </div>
         </div>
     </div>
+
+    <div class="row">
+        <div class="col-4 offset-4">
+            <img src="/storage/{{ $post->image }}" class="w-100">
+        </div>
+    </div>
+
+    <div class=" col-4 offset-4 pb-4">
+        <hr>
+    </div>
+    @endforeach
 </div>
 @endsection

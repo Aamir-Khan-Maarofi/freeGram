@@ -10,15 +10,15 @@ class UserProfile extends Model
     use HasFactory;
     protected $guarded = [];
 
+    //A profile can have many followers who are users
+    public function followers(){
+        return $this->belongsToMany(User::class, 'user_userprofile', 'userprofile_id', 'user_id');
+    }
     //One profile must be owned by one user
     public function user(){
         return $this->belongsTo(User::class);
     }
 
-    //This profile have many followers
-    public function followers(){
-        return $this->belongsToMany(User::class);
-    }
 
     //The profile image returned
     public function profileImage(){

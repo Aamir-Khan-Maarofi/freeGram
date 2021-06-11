@@ -15,14 +15,12 @@ use Illuminate\Support\Facades\Auth;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
 
 Auth::routes();
 
 
 //Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/', [\App\Http\Controllers\PostsController::class, "index"]);
 Route::get('/profile/{user}', [App\Http\Controllers\ProfilesController::class, 'index'])->name('profile.show');
 Route::get('/profile/{user}/edit', [App\Http\Controllers\ProfilesController::class, 'edit'])->name('profile.edit');
 Route::patch('/profile/{user}', [App\Http\Controllers\ProfilesController::class, 'update'])->name('profile.update');
@@ -32,4 +30,4 @@ Route::post('/p', [App\Http\Controllers\PostsController::class, 'store']);
 Route::get('/p/{post}', [App\Http\Controllers\PostsController::class, 'show']);
 
 //Route for the following unfollowing toggle
-Route::post('follow/{user}', [App\Http\Controllers\FollowsController::class, 'store']);
+Route::post('follow/{user}', [App\Http\Controllers\FollowController::class, 'store']);

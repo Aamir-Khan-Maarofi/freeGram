@@ -16,7 +16,11 @@ class ProfilesController extends Controller
         #$userRetreived = User::findOrFail($user);
         #dd($userRetreived);
 
-        return view('profiles.index', compact('user'));
+        //If the user is authenticated (someone is logged in), then return whether authenticated user is attached
+        //to this current viewed user, otherwise return false
+        $follows = (auth()->user()) ? auth()->user()->following->contains($user->id) : false;
+
+        return view('profiles.index', compact('user', 'follows'));
     }
 
     public function edit(\App\Models\User $user){
