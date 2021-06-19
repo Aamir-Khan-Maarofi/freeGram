@@ -1,2 +1,2 @@
-# FreeCodeGram 
+# FreeGram 
 ## Laravel Learning Project
